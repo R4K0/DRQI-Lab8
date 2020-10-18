@@ -15,7 +15,7 @@ class DefaultApp extends React.Component {
             <Switch>
               <Route exact path='/' component={Content} />
               <Route exact path='/footer' component={Footer} />
-              <Route exact path='/header' component={SecondContent}/>
+              <Route exact path='/content2' component={SecondContent}/>
             </Switch>
         </div>
       </Router>

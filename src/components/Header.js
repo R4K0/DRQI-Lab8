@@ -13,7 +13,7 @@ class PageHeader extends React.Component {
                 <Navbar.Collapse>
                     <Nav>
                         <Nav.Link href="/">Content</Nav.Link>
-                        <Nav.Link href="/header">Content 2</Nav.Link>
+                        <Nav.Link href="/content2">Content 2</Nav.Link>
                         <Nav.Link href="/footer">Footer</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
