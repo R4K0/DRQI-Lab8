@@ -1,23 +1,24 @@
 import React from 'react';
 import Content from './components/Content';
-import Footer from './components/Footer';
 import PageHeader from './components/Header';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import SecondContent from './components/SecondContent';
+import Read from './components/Read';
+import Create from './components/Create';
+import { Container } from 'react-bootstrap';
 
 class DefaultApp extends React.Component {
   render(){
     return (
       <Router>
         <PageHeader></PageHeader>
-        <div>
-            <br/>
+        <br />
+        <Container>
             <Switch>
               <Route exact path='/' component={Content} />
-              <Route exact path='/footer' component={Footer} />
-              <Route exact path='/content2' component={SecondContent}/>
+              <Route exact path='/read' component={Read} />
+              <Route exact path='/create' component={Create}/>
             </Switch>
-        </div>
+        </Container>
       </Router>
     )
   }
