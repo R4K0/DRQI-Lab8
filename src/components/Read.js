@@ -1,37 +1,48 @@
+import Axios from 'axios';
 import React from 'react';
+import { Spinner } from 'react-bootstrap';
 import Movies from './Movies';
 
 class Read extends React.Component {
 
+    // Initial empty data-set
     state = {
-        movies: [
-            {
-                "Title": "Avengers: Infinity War",
-                "Year": "2018",
-                "imdbID": "tt4154756",
-                "Type": "movie",
-                "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-            },
-            {
-                "Title": "Captain America: Civil War",
-                "Year": "2016",
-                "imdbID": "tt3498820",
-                "Type": "movie",
-                "Poster": "https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-            },
-            {
-                "Title": "Charlie Wilson's War",
-                "Year": "2007",
-                "imdbID": "tt0472062",
-                "Type": "movie",
-                "Poster": "https://m.media-amazon.com/images/M/MV5BMTgwMDgwMDc4MF5BMl5BanBnXkFtZTYwOTU3MDM4._V1_SX300.jpg"
-            }
-        ]
-    };
+        movies: [],
+        loading: false
+    }
+
+    // Instead of using .then and .catch with promises, I decided to write this function asynchronously 
+    async componentDidMount(){
+        try{
+            //We will be executing a get request, set the loading state to true
+            this.setState({
+                loading: true
+            })
+            // Execute a get request, the AWAIT keyword waits until the promise (which Axios.get returns) is fullfilled or rejected if it's fullfilled, then it continues execution
+            var Data = await Axios.get('https://jsonblob.com/api/jsonblob/520c3b5e-0312-11eb-a6af-cbf00d776032');
+
+            // Dig apart the returned promise data and assign it to our movies state, as well as set the loading state to false
+            this.setState({
+                movies: Data.data.Search,
+                loading: false
+            });
+
+        } catch(err) {
+            console.log(err);
+
+            // If we errored then we're obviously no longer waiting for the get request to resolve, set loading to false.
+            this.setState({
+                loading: false
+            })
+        }
+    }
 
     render(){
+        // If state loading is true, then show loading spinner, but if our states movie property length is 0, then show a header "No movies to show", otherwise render Movies component
         return (
-            <Movies movies={this.state.movies}></Movies>
+            <div>
+                {this.state.loading === true && <Spinner variant="primary" animation="border" style={{position: "absolute", left: "50%", top: "50%"}}></Spinner> || this.state.movies.length === 0 && <h1>No movies to show</h1> || <Movies movies={this.state.movies}></Movies>}                
+            </div>
         )
     }
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import {Nav, Navbar} from "react-bootstrap"
-import { Route } from "react-router-dom";
 
 class PageHeader extends React.Component {
     render(){
