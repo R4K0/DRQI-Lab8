@@ -19,17 +19,15 @@ class Read extends React.Component {
                 loading: true
             })
             // Execute a get request, the AWAIT keyword waits until the promise (which Axios.get returns) is fullfilled or rejected if it's fullfilled, then it continues execution
-            var Data = await Axios.get('https://jsonblob.com/api/jsonblob/520c3b5e-0312-11eb-a6af-cbf00d776032');
+            var Data = await Axios.get('http://localhost:4000/api/movies');
 
             // Dig apart the returned promise data and assign it to our movies state, as well as set the loading state to false
             this.setState({
-                movies: Data.data.Search,
+                movies: Data.data.movies,
                 loading: false
             });
 
         } catch(err) {
-            console.log(err);
-
             // If we errored then we're obviously no longer waiting for the get request to resolve, set loading to false.
             this.setState({
                 loading: false
