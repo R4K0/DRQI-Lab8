@@ -12,6 +12,19 @@ class Create extends React.Component {
         // Bind those methods to this instance of a class so "this" keyword is available.
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onRequestDeletion = this.onRequestDeletion.bind(this);
+    }
+
+    async onRequestDeletion(){
+        alert('Sent a request to remove all the movies created by you!');
+
+        try{
+            await Axios.get('http://localhost:4000/api/movies/drop')
+        } catch (err) {
+            this.setState({
+                error: "Something went wrong :("
+            })
+        }
     }
 
     // This will be fired whenever Form detects that it has been changed.
@@ -81,6 +94,10 @@ class Create extends React.Component {
 
                     <Button type="submit">
                         Submit
+                    </Button>
+
+                    <Button style={{marginLeft: '4px'}} className='btn btn-danger' onClick={this.onRequestDeletion}>
+                        Delete all movies submitted by me
                     </Button>
                 </Form>
             </div>

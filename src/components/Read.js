@@ -23,7 +23,7 @@ class Read extends React.Component {
 
             // Dig apart the returned promise data and assign it to our movies state, as well as set the loading state to false
             this.setState({
-                movies: Data.data.movies,
+                movies: Data.data || [],
                 loading: false
             });
 
