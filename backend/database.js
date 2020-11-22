@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-mongoose.connect( 'mongodb+srv://admin:gmit2020@drqi-lab7.sszmu.mongodb.net/moviesdb?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true} )
+const config = require(`../config/database.json`)
+mongoose.connect( `mongodb+srv://${config.username}:${config.password}@drqi-lab7.sszmu.mongodb.net/moviesdb?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true} )
 
 mongoose.connection.once( 'open', () => {
     console.log( `Connected to DB!` )
