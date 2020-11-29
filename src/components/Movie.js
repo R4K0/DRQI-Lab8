@@ -11,12 +11,16 @@ class Movie extends React.Component{
         this.DeleteMovie = this.DeleteMovie.bind(this);
     }
 
-    DeleteMovie(ID){
+    async DeleteMovie(ID){
         // Send a request to our backend server to remove a movie with this ID
         try {
-            Axios.post(`http://localhost:4000/api/movies/${ID}`)
+            console.log("I got here")
+            await Axios.post(`http://localhost:4000/api/movies/${ID}`)
 
             // Don't really know how to make the component unmount itself, so I'll leave that for another day
+            // Ignore above comment, I have got it to work 29th/11th :)
+
+            this.props.refresh(); // This method is the parents method - It gets passed from Read component, to Movies component, finally down to this child, where we call it.
         } catch (err) {
             console.log(err)
         }

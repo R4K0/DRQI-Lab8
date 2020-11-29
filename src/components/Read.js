@@ -5,6 +5,13 @@ import Movies from './Movies';
 
 class Read extends React.Component {
 
+    constructor(props){
+        super(props);
+
+        //bind loadMovies to instance of this class, allowing 'this' to be used inside of the method
+        this.loadMovies = this.loadMovies.bind(this);
+    }
+
     // Initial empty data-set
     state = {
         movies: [],
@@ -12,7 +19,7 @@ class Read extends React.Component {
     }
 
     // Instead of using .then and .catch with promises, I decided to write this function asynchronously 
-    async componentDidMount(){
+    async loadMovies(){
         try{
             //We will be executing a get request, set the loading state to true
             this.setState({
@@ -35,11 +42,15 @@ class Read extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.loadMovies();
+    }    
+
     render(){
         // If state loading is true, then show loading spinner, but if our states movie property length is 0, then show a header "No movies to show", otherwise render Movies component
         return (
             <div>
-                {this.state.loading === true && <Spinner variant="primary" animation="border" style={{position: "absolute", left: "50%", top: "50%"}}></Spinner> || this.state.movies.length === 0 && <h1>No movies to show</h1> || <Movies movies={this.state.movies}></Movies>}                
+                {this.state.loading === true && <Spinner variant="primary" animation="border" style={{position: "absolute", left: "50%", top: "50%"}}></Spinner> || this.state.movies.length === 0 && <h1>No movies to show</h1> || <Movies refresh={this.loadMovies} movies={this.state.movies}></Movies>}                
             </div>
         )
     }
